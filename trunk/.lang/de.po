@@ -1,0 +1,340 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-11-01 04:27+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: frmMain.class:683
+msgid "1\n2\n4\n8\n12\n16\n24\n32\n48\n64\n96\n128\n192\n256\n384\n512\n768\n1024"
+msgstr ""
+
+#: frmMain.class:763
+msgid "Advanced hardware config."
+msgstr "Erweiterte Hardware-Einstellungen."
+
+#: frmMain.class:727
+msgid "Avoid disk-full bug during install..."
+msgstr "Verhindere den Fehler, wenn die Festplatte während der Installation voll ist..."
+
+#: frmMain.class:615
+msgid "Basic hardware config."
+msgstr "Generelle Hardware-Einstellungen."
+
+#: frmMain.class:621
+msgid "Boot from:"
+msgstr "Booten von:"
+
+#: frmMain.class:631
+msgid "CD-ROM\nHard disk\nFloppy"
+msgstr ""
+
+#: frmMain.class:689
+msgid "Choose the number of SMP processors to emulate"
+msgstr "Wählen Sie die Anzahl der zu emulierenden SMP-Prozessoren"
+
+#: frmMain.class:787
+msgid "Cirrus Logic GD5446 PCI\nStandard VGA"
+msgstr ""
+
+#: frmMain.class:987
+msgid "Compressed image"
+msgstr "Komprimiertes Image"
+
+#: frmMain.class:862
+msgid "Create/convert"
+msgstr "Erstellen/Konvertieren"
+
+#: frmMain.class:960
+msgid "Create/convert disk image"
+msgstr "Erstelle/Konvertiere Festplatten-Image"
+
+#: frmMain.class:796
+msgid "Creative Sound Blaster 16\nENSONIQ AudioPCI ES1370\nboth\nnone"
+msgstr ""
+
+#: frmMain.class:749
+msgid "Disable accelerator"
+msgstr "Beschleunigung deaktivieren"
+
+#: frmMain.class:748
+msgid "Disable the kernel accelerator module"
+msgstr "Modul zur Kernel-Beschleunigung deaktivieren"
+
+#: frmMain.class:857
+msgid "Disk images"
+msgstr "Festplatten Images"
+
+#: frmMain.class:713
+msgid "Do not save changes to disk image"
+msgstr "Änderungen nicht auf Festplatten-Image speichern"
+
+#: frmMain.class:610
+msgid "Emulation"
+msgstr "Emulation"
+
+#: frmMain.class:742
+msgid "Enable USB driver"
+msgstr "USB Treiber aktivieren"
+
+#: frmMain.class:741
+msgid "Enable the UHCI USB controller and virtual hub"
+msgstr "UHCI USB Controller und virtuellen USB Hub aktivieren"
+
+#: frmMain.class:755
+msgid "Enable the kernel accelerator module in full virtualization mode...\nUse only with Linux 2.4 / 2.6 and Windows 2000 / XP guests"
+msgstr "Aktiviere das Modul zur Kernel-Beschleunigung in vollständigem Virtualisationsmodus...\nNur mit den Gast-Systemen Linux 2.4/2.6 und Windows 2000 / XP benutzen"
+
+#: frmMain.class:995
+msgid "Encrypted image"
+msgstr "Verschlüsseltes Image"
+
+#: frmMain.class:1279
+msgid "Exit"
+msgstr ""
+
+#: frmMain.class:1278
+msgid "Exit VL-QEMU"
+msgstr "VL-QEMU verlassen"
+
+#: frmMain.class:720
+msgid "Full screen or windowed mode"
+msgstr "Vollbild oder Fenster-Modus"
+
+#: frmMain.class:756
+msgid "Full virtualization mode"
+msgstr "Vollständiger Virtualisationsmodus"
+
+#: frmMain.class:946
+msgid "GB\nMB\nKB"
+msgstr ""
+
+#: frmMain.class:961
+msgid "Go!"
+msgstr ""
+
+#: frmMain.class:769
+msgid "Graphics adapter:"
+msgstr "Graphikkarte:"
+
+#: frmMain.class:825
+msgid "Guest:"
+msgstr "Gast:"
+
+#: frmMain.class:842
+msgid "Host:"
+msgstr "Wirt:"
+
+#: frmMain.class:638
+msgid "Keyboard lang:"
+msgstr "Tastaturlayout:"
+
+#: frmMain.class:836
+msgid "Linux 2.6\nLinux 2.4\nWindows 9x\nWindows 2000\nWindows XP\nFreeDOS / DOS\nOther"
+msgstr ""
+
+#: frmMain.class:734
+msgid "Log to /tmp/qemu.log"
+msgstr "Log nach /tmp/qemu.log schreiben"
+
+#: frmMain.class:803
+msgid "Machine type:"
+msgstr "Computer Typ:"
+
+#: frmMain.class:1209
+msgid "Network"
+msgstr "Netzwerk"
+
+#: frmMain.class:820
+msgid "OS"
+msgstr ""
+
+#: frmMain.class:708
+msgid "Options"
+msgstr "Optionen"
+
+#: frmMain.class:735
+msgid "Output log file"
+msgstr "Log-Datei schreiben"
+
+#: frmMain.class:1272
+msgid "QEMU"
+msgstr ""
+
+#: frmMain.class:656
+msgid "RTC mode:"
+msgstr ""
+
+#: frmMain.class:1271
+msgid "Run QEMU with the current configuration"
+msgstr "QEMU mit aktueller Konfiguration starten"
+
+#: frmMain.class:690
+msgid "SMP Processors:"
+msgstr "SMP Prezessoren:"
+
+#: frmMain.class:1230
+msgid "Samba share:"
+msgstr "Samba Freigabe:"
+
+#: frmMain.class:655
+msgid "Select Real Time Clock mode"
+msgstr "Real Time Clock Modus"
+
+#: frmMain.class:620
+msgid "Select boot device"
+msgstr "Boot-Laufwerk auswählen"
+
+#: frmMain.class:768
+msgid "Select graphics hardware to use"
+msgstr "Zu benutzende Graphikhardware auswählen"
+
+#: frmMain.class:637
+msgid "Select keyboard layout language"
+msgstr "Tastaturlayout auswählen"
+
+#: frmMain.class:776
+msgid "Select sound hardware to enable"
+msgstr "Zu aktivierende Sound-Hardware auswählen"
+
+#: frmMain.class:672
+msgid "Select the amount of RAM for the VM"
+msgstr "Zu verwendenden RAM-Speicher für die VM wählen"
+
+#: frmMain.class:802
+msgid "Select the emulated machine"
+msgstr "Den zu emulierenden Computer auswählen"
+
+#: frmMain.class:833
+msgid "Select the guest OS"
+msgstr "Gast-Betriebsystem auswählen"
+
+#: frmMain.class:850
+msgid "Select the host OS"
+msgstr "Wirts-Betriebssystem auswählen"
+
+#: frmMain.class:777
+msgid "Sound hardware:"
+msgstr "Sound Hardware:"
+
+#: frmMain.class:813
+msgid "Standard PC\nISA-only PC"
+msgstr ""
+
+#: frmMain.class:721
+msgid "Start in full screen"
+msgstr "In Vollbild-Modus starten"
+
+#: frmMain.class:1242
+msgid "The Vector Linux QEMU GUI front-end"
+msgstr "Das Vector Linux QEMU GUI Frontend"
+
+#: frmMain.class:1249
+msgid "VL-QEMU"
+msgstr "VL-QEMU"
+
+#: frmMain.class:601
+msgid "VL-qemu"
+msgstr "VL-qemu"
+
+#: frmMain.class:673
+msgid "VM RAM (MB):"
+msgstr "VM RAM (MB):"
+
+#: frmMain.class:728
+msgid "Win 2K install hack"
+msgstr "Win 2k Installations-Hack"
+
+#: frmMain.class:714
+msgid "Write to temporary file"
+msgstr "In temporäre Datei schreiben"
+
+#: frmMain.class:648
+msgid "ar\nda\nde\nde-ch\nen-gb\nen-us\nes\net\nfi\nfo\nfr\nfr-be\nfr-ca\nfr-ch\nhr\nhu\nis\nit\nja\nlt\nlv\nmk\nnl\nnl-be\nno\npl\npt\npt-br\nru\nsl\nsv\nth\ntr"
+msgstr ""
+
+#: frmMain.class:932
+msgid "auto\nraw\nqcow\ncow\nvmdk\ncloop"
+msgstr ""
+
+#: frmMain.class:1062
+msgid "cdrom:"
+msgstr "cdrom:"
+
+#: frmMain.class:978
+msgid "convert"
+msgstr ""
+
+#: frmMain.class:971
+msgid "create"
+msgstr ""
+
+#: frmMain.class:923
+msgid "dest:"
+msgstr ""
+
+#: frmMain.class:1017
+msgid "fda:"
+msgstr ""
+
+#: frmMain.class:1032
+msgid "fdb:"
+msgstr ""
+
+#: frmMain.class:867
+msgid "format:"
+msgstr "format:"
+
+#: frmMain.class:1084
+msgid "hda:"
+msgstr ""
+
+#: frmMain.class:1114
+msgid "hdb:"
+msgstr ""
+
+#: frmMain.class:1144
+msgid "hdc:"
+msgstr ""
+
+#: frmMain.class:1174
+msgid "hdd:"
+msgstr ""
+
+#: frmMain.class:666
+msgid "localtime\nUTC"
+msgstr ""
+
+#: frmMain.class:1206
+msgid "none\n/dev/cdrom\n/dev/dvd\n/dev/cdwriter\nfile"
+msgstr ""
+
+#: frmMain.class:1093
+msgid "none\nfile"
+msgstr ""
+
+#: frmMain.class:1026
+msgid "none\nfile\n/dev/fd0\n/dev/fd1\n/dev/fd2\n/dev/fd3"
+msgstr ""
+
+#: frmMain.class:897
+msgid "raw\nqcow\ncow\nvmdk\ncloop"
+msgstr ""
+
+#: frmMain.class:938
+msgid "size:"
+msgstr "Größe:"
+
+#: frmMain.class:883
+msgid "source:"
+msgstr "Quelle:"
+
+#: .project:1
+msgid "vl-qemu"
+msgstr "vl-qemu"
+
