@@ -1,0 +1,156 @@
+' Gambas module file
+
+PUBLIC arrHPort AS String[]
+PUBLIC arrVMPort AS String[]
+
+
+PUBLIC FUNCTION ReadIni(IniKey AS String, vDEFAULT AS Variant) AS Variant
+DIM hSettings AS Settings
+DIM aVariant AS Variant
+   hSettings = NEW Settings(System.Home & "/" & ".vl-qemu.conf")
+   aVariant = hSettings [ IniKey , vDEFAULT ]
+'   aVariant = hSettings [ IniKey ]
+   RETURN aVariant
+END
+
+PUBLIC SUB WriteIni(IniKey AS String, aVariant AS Variant)
+DIM hSettings AS Settings
+   hSettings = NEW Settings(System.Home & "/" & ".vl-qemu.conf")
+   hSettings [ IniKey ] = aVariant
+END
+
+PUBLIC FUNCTION GetFile() AS String
+   'Image file selection dialog:
+   dialog.path = System.Home
+   IF dialog.openfile()=FALSE THEN
+      RETURN dialog.path
+   ELSE
+      'RETURN ""
+   ENDIF
+END
+
+PUBLIC FUNCTION SaveFile() AS String
+   'Image file selection dialog:
+   dialog.path = System.Home
+   IF dialog.savefile()=FALSE THEN
+      RETURN dialog.path
+   ELSE
+      'RETURN ""
+   ENDIF
+END
+
+PUBLIC FUNCTION GetDir() AS String
+   'Image file selection dialog:
+   dialog.path = System.Home
+   IF dialog.SelectDirectory()=FALSE THEN
+      RETURN dialog.path
+   ELSE
+      'RETURN ""
+   ENDIF
+END
+
+
+PUBLIC SUB SaveConfig()
+   'Write config to ini file:
+   WriteIni("Setting.Boot", frmMain.cmbBoot.Index)
+   WriteIni("Setting.KeyLang", frmMain.cmbKeyLang.Index)
+   WriteIni("Setting.RTCMode", frmMain.cmbRTCMode.Index)
+   WriteIni("Setting.RAM", frmMain.cmbRAM.Index)
+   WriteIni("Setting.Snapshot", frmMain.chkSnapshot.Value)
+   WriteIni("Setting.ScreenMode", frmMain.chkScreenMode.Value)
+   WriteIni("Setting.Win2kHack", frmMain.chkWin2kHack.Value)
+   WriteIni("Setting.Log", frmMain.chkLog.Value)
+   WriteIni("Setting.USB", frmMain.chkUSB.Value)
+   WriteIni("Setting.KQEMU", frmMain.chkKQEMU.Value)
+   WriteIni("Setting.KQEMUFull", frmMain.chkKQEMUFull.Value)
+
+   WriteIni("Setting.ACPI", frmMain.chkACPI.Value)
+   WriteIni("Setting.NoReboot", frmMain.chkNoReboot.Value)
+
+   WriteIni("Setting.Machine", frmMain.cmbMachine.Index)
+   WriteIni("Setting.GraphicsHW", frmMain.cmbGraphicsHW.Index)
+   WriteIni("Setting.SoundHW", frmMain.cmbSoundHW.Index)
+   WriteIni("ImageType.FDA", frmMain.cmbFDA.Index)
+   WriteIni("ImageType.FDB", frmMain.cmbFDB.Index)
+   WriteIni("ImageType.CDROM", frmMain.cmbCDROM.Index)
+   WriteIni("ImageType.HDA", frmMain.cmbHDA.Index)
+   WriteIni("ImageType.HDB", frmMain.cmbHDB.Index)
+   WriteIni("ImageType.HDC", frmMain.cmbHDC.Index)
+   WriteIni("ImageType.HDD", frmMain.cmbHDD.Index)
+   WriteIni("ImageManager.Source", frmMain.txtSourceImage.Text)
+   WriteIni("ImageManager.Dest", frmMain.txtDestImage.Text)
+   WriteIni("ImageManager.SourceFormat", frmMain.cmbSourceFormat.Index)
+   WriteIni("ImageManager.DestFormat", frmMain.cmbDestFormat.Index)
+   WriteIni("ImageManager.Size", frmMain.spnImageSize.Value)
+   WriteIni("ImageManager.SizeUnit", frmMain.cmbImageSize.Index)
+   WriteIni("ImagePath.FDA", frmMain.txtFDA.Text)
+   WriteIni("ImagePath.FDB", frmMain.txtFDB.Text)
+   WriteIni("ImagePath.CDROM", frmMain.txtCDROM.Text)
+   WriteIni("ImagePath.HDA", frmMain.txtHDA.Text)
+   WriteIni("ImagePath.HDB", frmMain.txtHDB.Text)
+   WriteIni("ImagePath.HDC", frmMain.txtHDC.Text)
+   WriteIni("ImagePath.HDD", frmMain.txtHDD.Text)
+
+   WriteIni("Network.NIC1", frmMain.cmbNIC1.Index)
+   WriteIni("Network.MAC1", frmMain.txtMAC1.Text)
+   WriteIni("Network.NIC2", frmMain.cmbNIC2.Index)
+   WriteIni("Network.MAC2", frmMain.txtMAC2.Text)
+   WriteIni("Network.NIC3", frmMain.cmbNIC3.Index)
+   WriteIni("Network.MAC3", frmMain.txtMAC3.Text)
+   WriteIni("Network.NIC4", frmMain.cmbNIC4.Index)
+   WriteIni("Network.MAC4", frmMain.txtMAC4.Text)
+
+
+   WriteIni("Network.Samba", frmMain.chkSamba.Value )
+   WriteIni("Network.SambaPath", frmMain.txtSamba.Text )
+END
+
+PUBLIC SUB ReadConfig()
+   'Read config from ini file:
+   frmMain.cmbBoot.Index = ReadIni("Setting.Boot", 0)
+   frmMain.cmbKeyLang.Index = ReadIni("Setting.KeyLang", 5)
+   frmMain.cmbRTCMode.Index = ReadIni("Setting.RTCMode", 0)
+   frmMain.cmbRAM.Index = ReadIni("Setting.RAM", 11)
+   frmMain.chkSnapshot.Value = ReadIni("Setting.Snapshot", FALSE)
+   frmMain.chkScreenMode.Value = ReadIni("Setting.ScreenMode", FALSE)
+   frmMain.chkWin2kHack.Value = ReadIni("Setting.Win2kHack", FALSE)
+   frmMain.chkLog.Value = ReadIni("Setting.Log", FALSE)
+   frmMain.chkUSB.Value = ReadIni("Setting.USB", FALSE)
+   frmMain.chkKQEMU.Value = ReadIni("Setting.KQEMU", FALSE)
+   frmMain.chkKQEMUFull.Value = ReadIni("Setting.KQEMUFull", FALSE)
+   frmMain.chkACPI.Value = ReadIni("Setting.ACPI", FALSE)
+   frmMain.chkNoReboot.Value = ReadIni("Setting.NoReboot", FALSE)
+   frmMain.cmbMachine.Index = ReadIni("Setting.Machine", 0)
+   frmMain.cmbGraphicsHW.Index = ReadIni("Setting.GraphicsHW", 0)
+   frmMain.cmbSoundHW.Index = ReadIni("Setting.SoundHW", 0)
+   frmMain.cmbFDA.Index = ReadIni("ImageType.FDA", 0)
+   frmMain.cmbFDB.Index = ReadIni("ImageType.FDB", 0)
+   frmMain.cmbCDROM.Index = ReadIni("ImageType.CDROM", 1)
+   frmMain.cmbHDA.Index = ReadIni("ImageType.HDA", 0)
+   frmMain.cmbHDB.Index = ReadIni("ImageType.HDB", 0)
+   frmMain.cmbHDC.Index = ReadIni("ImageType.HDC", 0)
+   frmMain.cmbHDD.Index = ReadIni("ImageType.HDD", 0)
+   frmMain.txtSourceImage.Text = ReadIni("ImageManager.Source", "")
+   frmMain.txtDestImage.Text = ReadIni("ImageManager.Dest", "")
+   frmMain.cmbSourceFormat.Index = ReadIni("ImageManager.SourceFormat", 0)
+   frmMain.cmbDestFormat.Index = ReadIni("ImageManager.DestFormat", 1)
+   frmMain.spnImageSize.Value = ReadIni("ImageManager.Size", 1)
+   frmMain.cmbImageSize.Index = ReadIni("ImageManager.SizeUnit", 0)
+   frmMain.txtFDA.Text = ReadIni("ImagePath.FDA", "")
+   frmMain.txtFDB.Text = ReadIni("ImagePath.FDB", "")
+   frmMain.txtCDROM.Text = ReadIni("ImagePath.CDROM", "")
+   frmMain.txtHDA.Text = ReadIni("ImagePath.HDA", "")
+   frmMain.txtHDB.Text = ReadIni("ImagePath.HDB", "")
+   frmMain.txtHDC.Text = ReadIni("ImagePath.HDC", "")
+   frmMain.txtHDD.Text = ReadIni("ImagePath.HDD", "")
+   frmMain.cmbNIC1.Index = ReadIni("Network.NIC1", 0)
+   frmMain.txtMAC1.Text = ReadIni("Network.MAC1", "")
+   frmMain.cmbNIC2.Index = ReadIni("Network.NIC2", 0)
+   frmMain.txtMAC2.Text = ReadIni("Network.MAC2", "")
+   frmMain.cmbNIC3.Index = ReadIni("Network.NIC3", 0)
+   frmMain.txtMAC3.Text = ReadIni("Network.MAC3", "")
+   frmMain.cmbNIC4.Index = ReadIni("Network.NIC4", 0)
+   frmMain.txtMAC4.Text = ReadIni("Network.MAC4", "")
+   frmMain.chkSamba.Value = ReadIni("Network.Samba", 0)
+   frmMain.txtSamba.Text = ReadIni("Network.SambaPath", "")
+END

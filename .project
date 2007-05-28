@@ -1,0 +1,15 @@
+# Gambas Project File 1.0
+Project=vl-qemu
+Title=vl-qemu
+Startup=frmMain
+TabSize=3
+Version=0.8.13
+Library=gb.qt
+Library=gb.qt.ext
+SnapToGrid=1
+ShowGrid=1
+Snap=8
+Localize=0
+KeepDebugInfo=0
+ControlPublic=1
+Prefix=0

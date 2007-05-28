@@ -1,0 +1,689 @@
+' Gambas class file
+
+
+PUBLIC SUB Form_Open()
+   'Center form on screen:
+   ME.Caption = "VL-Qemu " & application.Version
+   ME.Center
+
+
+   'Set default RAM to 128 MB:
+   cmbRAM.Index = 11
+   'Set default keyboard language to en-us:
+   cmbKeyLang.Index = 5
+   'Set default dest image format:
+   cmbDestFormat.Index = 1
+   'Check values to enable/disable file input:
+   cmbFDA_Click
+   cmbFDB_Click
+   cmbCDROM_Click
+   cmbHDA_Click
+   cmbHDB_Click
+   cmbHDC_Click
+   cmbHDD_Click
+   chkSamba_Click
+   'To enable/disable compressed:
+   rbtImageProc_Click()
+   'Check for no ini file:
+'   IF Exist(System.Home & "/.gambas/" & "vl-qemu.conf") THEN
+      'Read config from ini file:
+      Global.ReadConfig
+'   ELSE
+'      global.SaveConfig
+'   ENDIF
+END
+
+PUBLIC SUB Button2_Click()
+   'Write config to ini file:
+   Global.SaveConfig
+   'Go away...
+   ME.Close
+END
+
+PUBLIC SUB Button1_Click()
+DIM vBoot AS String
+DIM vRAM AS String
+DIM vSMP AS String
+DIM vRTCMode AS String
+DIM vKeyLang AS String
+DIM vMachine AS String
+DIM vSnapshot AS String
+DIM vLog AS String
+DIM vCDROM AS String
+DIM vHDA AS String
+DIM vHDB AS String
+DIM vHDC AS String
+DIM vHDD AS String
+DIM vSoundHW AS String
+DIM vScreenMode AS String
+DIM vWin2kHack AS String
+DIM vUSB AS String
+DIM vKQEMU AS String
+DIM vNoACPI AS String
+DIM vNoReboot AS String
+DIM vSamba AS String
+DIM vNetwork AS String
+DIM vNetwork1 AS String
+DIM vNetwork2 AS String
+DIM vNetwork3 AS String
+DIM vNetwork4 AS String
+DIM vPortRedirect AS String
+DIM sTemp AS String
+
+'RAM amount to allocate:
+vRAM = " -m " & cmbRAM.Text & " "
+
+'Number of SMP processors:
+vSMP= " -smp " & Str(spnSMP.Value) & " "
+IF cmbRTCMode.Text ="localtime" THEN
+   vRTCMode =" -localtime "
+ELSE
+   vRTCMode =""
+ENDIF
+
+'Keyboard language:
+vKeyLang = "-k " & cmbKeyLang.Text  & " "
+
+'Emulated machine:
+SELECT cmbMachine.Text
+   CASE "Standard PC"
+      vMachine =" -m pc "
+   CASE "ISA-only PC"
+      vMachine =" -m isapc "
+   CASE ELSE
+      vMachine =" -m pc "
+END SELECT
+
+'Snapshot mode:
+IF chkSnapshot.Value =TRUE THEN
+   vSnapshot = " -snapshot "
+ELSE
+   vSnapshot = ""
+ENDIF
+
+'Log to /tmp/qemu.log
+IF chkLog.Value =TRUE THEN
+   vLog = " -d "
+ELSE
+   vLog = ""
+ENDIF
+
+'CD-ROM device or image:
+IF cmbCDROM.text = "/dev/cdrom" THEN
+   vCDROM =" -cdrom /dev/cdrom "
+ELSE
+   vCDROM = ""
+ENDIF
+SELECT cmbCDROM.text
+   CASE "/dev/cdrom"
+      vCDROM =" -cdrom /dev/cdrom "
+   CASE "/dev/dvd"
+      vCDROM =" -cdrom /dev/dvd "
+   CASE "/dev/cdwriter"
+      vCDROM =" -cdrom /dev/cdwriter "
+   CASE "file"
+      vCDROM =" -cdrom " & txtCDROM.Text & " "
+   CASE "none"
+      vCDROM =""
+   CASE ELSE
+      vCDROM =""
+END SELECT
+
+'Hard Disk images:
+IF txtHDA.Enabled = TRUE THEN
+   vHDA = " -hda " & txtHDA.Text  & " "
+ELSE
+   vHDA = ""
+ENDIF
+IF txtHDB.Enabled = TRUE THEN
+   vHDB = " -hdb " & txtHDB.Text  & " "
+ELSE
+   vHDB = ""
+ENDIF
+IF cmbHDC.Enabled = TRUE AND txtHDC.Enabled = TRUE THEN
+   vHDC = " -hdc " & txtHDC.Text  & " "
+ELSE
+   vHDC = ""
+ENDIF
+IF txtHDD.Enabled = TRUE THEN
+   vHDD = " -hdd " & txtHDD.Text  & " "
+ELSE
+   vHDD = ""
+ENDIF
+
+'Sound hardware:
+SELECT cmbSoundHW.Text
+   CASE "Creative Sound Blaster 16"
+      vSoundHW =" -soundhw sb16 "
+   CASE "ENSONIQ AudioPCI ES1370"
+      vSoundHW =" -soundhw es1370 "
+   CASE "both"
+      vSoundHW =" -soundhw all "
+   CASE "none"
+      vSoundHW =""
+   CASE ELSE
+      vSoundHW =""
+END SELECT
+
+'Screen mode (full or windowed):
+IF chkScreenMode.Value = TRUE THEN
+   vScreenMode =" -full-screen "
+ELSE
+   vScreenMode =""
+ENDIF
+
+'Win2K install hack:
+IF chkWin2kHack.Value =TRUE THEN
+   vWin2kHack =" -win2k-hack "
+ELSE
+   vWin2kHack =""
+ENDIF
+
+'USB driver:
+IF chkUSB.Value =TRUE THEN
+   vUSB =" -usb "
+ELSE
+   vUSB =""
+ENDIF
+
+'Boot device:
+SELECT cmbBoot.Text
+   CASE "CD-ROM"
+      vBoot=" -boot d "
+   CASE "Hard disk"
+      vBoot=" -boot c "
+   CASE "Floppy"
+      vBoot=" -boot a "
+   CASE ELSE
+      vBoot=" -boot c "
+END SELECT
+
+'Disable accelerator:
+IF chkKQEMU.Value = TRUE THEN
+   vKQEMU = " -no-kqemu "
+ELSE
+   vKQEMU = ""
+ENDIF
+
+'Enable accelerator full:
+IF chkKQEMUFull.Value = TRUE THEN
+   vKQEMU = " -kernel-kqemu "
+ELSE
+   vKQEMU = ""
+ENDIF
+
+'Disable ACPI:
+IF chkACPI.Value = TRUE THEN
+   vNoACPI = " -no-acpi "
+ELSE
+   vNoACPI = ""
+ENDIF
+
+'Exit instead of rebooting:
+IF chkNoReboot.Value = TRUE THEN
+   vNoReboot = " -no-reboot "
+ELSE
+   vNoReboot = ""
+ENDIF
+
+
+'Samba dir:
+IF chkSamba.Value = TRUE AND IsDir(txtSamba.Text) THEN
+   vSamba = "-smb " & txtSamba.Text & " "
+ELSE
+   vSamba = ""
+ENDIF
+
+'Network configuration:
+'User mode network:
+'vNetwork = "-net user "
+
+'NIC #1:
+vNetwork1 = ""
+IF cmbNIC1.Text <> "none" THEN
+   vNetwork1 = vNetwork1 & "-net nic,vlan=0,model='" & NICType(cmbNIC1.Text) & "'"
+   IF txtMAC1.Text <> "" THEN
+      vNetwork1 = vNetwork1 & ",macaddr='" & txtMAC1.Text & "' "
+   ELSE
+      vNetwork1 = vNetwork1 & " "
+   ENDIF
+ENDIF
+'NIC #2:
+vNetwork2 = ""
+IF cmbNIC2.Text <> "none" THEN
+   vNetwork2 = vNetwork2 & "-net nic,vlan=1,model='" & NICType(cmbNIC2.Text) & "'"
+   IF txtMAC2.Text <> "" THEN
+      vNetwork2 = vNetwork2 & ",macaddr='" & txtMAC2.Text & "' "
+   ELSE
+      vNetwork2 = vNetwork2 & " "
+   ENDIF
+ENDIF
+'NIC #3:
+vNetwork3 = ""
+IF cmbNIC3.Text <> "none" THEN
+   vNetwork3 = vNetwork3 & "-net nic,vlan=2,model='" & NICType(cmbNIC3.Text) & "'"
+   IF txtMAC3.Text <> "" THEN
+      vNetwork3 = vNetwork3 & ",macaddr='" & txtMAC3.Text & "' "
+   ELSE
+      vNetwork3 = vNetwork3 & " "
+   ENDIF
+ENDIF
+'NIC #4:
+vNetwork4 = ""
+IF cmbNIC4.Text <> "none" THEN
+   vNetwork4 = vNetwork4 & "-net nic,vlan=3,model='" & NICType(cmbNIC4.Text) & "'"
+   IF txtMAC4.Text <> "" THEN
+      vNetwork4 = vNetwork4 & ",macaddr='" & txtMAC4.Text & "' "
+   ELSE
+      vNetwork4 = vNetwork4 & " "
+   ENDIF
+ENDIF
+vNetwork = "-net user " & vNetwork1 & vNetwork2 & vNetwork3 & vNetwork4
+
+'Network port redirection:
+'PORT#1:
+IF txtHport1.Text <> "" AND txtVMport1.Text <> "" THEN
+   IF Val(txtHport1.Text) < 65537 AND Val(txtVMport1.Text) < 65537 THEN
+      vPortRedirect = vPortRedirect & "-redir " & cmbPortType1.Text & ":" & txtHport1.Text & "::" & txtVMport1.Text & " "
+   ENDIF
+ELSE
+ENDIF
+'PORT#2:
+IF txtHport2.Text <> "" AND txtVMport2.Text <> "" THEN
+   IF Val(txtHport2.Text) < 65537 AND Val(txtVMport2.Text) < 65537 THEN
+      vPortRedirect = vPortRedirect & "-redir " & cmbPortType2.Text & ":" & txtHport2.Text & "::" & txtVMport2.Text & " "
+   ENDIF
+ELSE
+ENDIF
+'PORT#3:
+IF txtHport3.Text <> "" AND txtVMport3.Text <> "" THEN
+   IF Val(txtHport3.Text) < 65537 AND Val(txtVMport3.Text) < 65537 THEN
+      vPortRedirect = vPortRedirect & "-redir " & cmbPortType3.Text & ":" & txtHport3.Text & "::" & txtVMport3.Text & " "
+   ENDIF
+ELSE
+ENDIF
+'PORT#4:
+IF txtHport4.Text <> "" AND txtVMport4.Text <> "" THEN
+   IF Val(txtHport4.Text) < 65537 AND Val(txtVMport4.Text) < 65537 THEN
+      vPortRedirect = vPortRedirect & "-redir " & cmbPortType4.Text & ":" & txtHport4.Text & "::" & txtVMport4.Text & " "
+   ENDIF
+ELSE
+ENDIF
+'PORT#5:
+IF txtHport5.Text <> "" AND txtVMport5.Text <> "" THEN
+   IF Val(txtHport5.Text) < 65537 AND Val(txtVMport5.Text) < 65537 THEN
+      vPortRedirect = vPortRedirect & "-redir " & cmbPortType5.Text & ":" & txtHport5.Text & "::" & txtVMport5.Text & " "
+   ENDIF
+ELSE
+ENDIF
+'PORT#6:
+IF txtHport6.Text <> "" AND txtVMport6.Text <> "" THEN
+   IF Val(txtHport6.Text) < 65537 AND Val(txtVMport6.Text) < 65537 THEN
+      vPortRedirect = vPortRedirect & "-redir " & cmbPortType6.Text & ":" & txtHport6.Text & "::" & txtVMport6.Text & " "
+   ENDIF
+ELSE
+ENDIF
+
+'Prep qemu string to shell:
+sTemp = vHDA & vBoot & vRAM & vSMP & vKeyLang & vSoundHW & vScreenMode & vWin2kHack & vRTCMode & vCDROM & vHDB & vHDC & vHDD & vKQEMU & vNoACPI & vNoReboot & vSamba & vNetwork & vPortRedirect
+
+'Message.Info(sTemp, "OK")
+PRINT sTemp
+SHELL "qemu " & sTemp
+
+END
+
+FUNCTION NICType(sNICType AS String) AS String
+
+SELECT CASE sNICType
+CASE "NE2000 PCI"
+   RETURN "ne2k_pci"
+CASE "NE2000 ISA"
+   RETURN "ne2k_isa"
+CASE "Realtek 8139"
+   RETURN "rtl8139"
+CASE "SMC 91c111"
+   RETURN "smc91c111"
+CASE "lance"
+   RETURN "lance"
+END SELECT
+
+END
+
+
+PUBLIC SUB tbtFDA_Click()
+   txtFDA.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtFDB_Click()
+   txtFDB.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtCDROM_Click()
+   txtCDROM.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtHDA_Click()
+   txtHDA.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtHDB_Click()
+   txtHDB.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtHDC_Click()
+   txtHDC.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtHDD_Click()
+   txtHDD.text = Global.GetFile()
+END
+
+PUBLIC SUB cmbFDA_Click()
+   IF cmbFDA.Text = "file" THEN
+      txtFDA.Enabled = TRUE
+      tbtFDA.Enabled = TRUE
+   ELSE
+      txtFDA.Enabled = FALSE
+      tbtFDA.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB cmbFDB_Click()
+   IF cmbFDB.Text = "file" THEN
+      txtFDB.Enabled = TRUE
+      tbtFDB.Enabled = TRUE
+   ELSE
+      txtFDB.Enabled = FALSE
+      tbtFDB.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB cmbCDROM_Click()
+   IF cmbCDROM.Text = "file" THEN
+      txtCDROM.Enabled = TRUE
+      tbtCDROM.Enabled = TRUE
+   ELSE
+      txtCDROM.Enabled = FALSE
+      tbtCDROM.Enabled = FALSE
+   ENDIF
+   IF cmbCDROM.Text <> "none" THEN
+      cmbHDC.Enabled = FALSE
+   ELSE
+      cmbHDC.Enabled = TRUE
+   ENDIF
+END
+
+PUBLIC SUB cmbHDA_Click()
+   IF cmbHDA.Text = "file" THEN
+      txtHDA.Enabled =TRUE
+      tbtHDA.Enabled = TRUE
+   ELSE
+      txtHDA.Enabled = FALSE
+      tbtHDA.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB cmbHDB_Click()
+   IF cmbHDB.Text = "file" THEN
+      txtHDB.Enabled = TRUE
+      tbtHDB.Enabled = TRUE
+   ELSE
+      txtHDB.Enabled = FALSE
+      tbtHDB.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB cmbHDC_Click()
+   IF cmbHDC.Text = "file" THEN
+      txtHDC.Enabled = TRUE
+      tbtHDC.Enabled = TRUE
+   ELSE
+      txtHDC.Enabled = FALSE
+      tbtHDC.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB cmbHDD_Click()
+   IF cmbHDD.Text = "file" THEN
+      txtHDD.Enabled = TRUE
+      tbtHDD.Enabled = TRUE
+   ELSE
+      txtHDD.Enabled = FALSE
+      tbtHDD.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB rbtImageProc_Click()
+   IF rbtImageManager2.Value = TRUE THEN
+      lblSourceImage.Enabled = TRUE
+      txtSourceImage.Enabled = TRUE
+      tbtSourceImage.Enabled = TRUE
+      lblSourceFormat.Enabled = TRUE
+      cmbSourceFormat.Enabled = TRUE
+      lblImageSize.Enabled = FALSE
+      spnImageSize.Enabled = FALSE
+      cmbImageSize.Enabled = FALSE
+      IF cmbDestFormat.Text = "qcow" OR cmbDestFormat.Text = "qcow2" THEN
+         chkCompress.Enabled = TRUE
+      ELSE
+         chkCompress.Enabled = FALSE
+      ENDIF
+   ELSE
+      lblSourceImage.Enabled = FALSE
+      txtSourceImage.Enabled = FALSE
+      tbtSourceImage.Enabled = FALSE
+      lblSourceFormat.Enabled = FALSE
+      cmbSourceFormat.Enabled = FALSE
+      lblImageSize.Enabled = TRUE
+      spnImageSize.Enabled = TRUE
+      cmbImageSize.Enabled = TRUE
+      chkCompress.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB tbtSourceImage_Click()
+   txtSourceImage.text = Global.GetFile()
+END
+
+PUBLIC SUB tbtDestImage_Click()
+   txtDestImage.text = Global.SaveFile()
+END
+
+PUBLIC SUB cmbDestFormat_Click()
+   IF (cmbDestFormat.Text = "qcow" OR cmbDestFormat.Text = "qcow2") AND rbtImageManager2.Value = TRUE THEN
+      chkCompress.enabled = TRUE
+   ELSE
+      chkCompress.enabled = FALSE
+   ENDIF
+END
+
+
+
+PUBLIC SUB butImageManager_Click()
+DIM sTemp AS String
+DIM MyProc AS Process
+   IF rbtImageManager1.Value = TRUE THEN
+      IF txtDestImage.Text = "" THEN
+         message.Info("Destination file textbox is empty", "OK")
+      ELSE
+         IF Exist(txtDestImage.Text) THEN
+            message.Info("Destination file already exists", "OK")
+         ELSE
+            IF Left(txtDestImage.Text, 1) = "/" THEN
+               'do it
+               sTemp = sTemp & "create "
+               'IF chkEncrypt.Value = TRUE THEN sTemp = sTemp & " -e "
+               sTemp = sTemp & "-f " & cmbDestFormat.Text & " "
+               sTemp = sTemp & txtDestImage.Text & " "
+               sTemp = sTemp & spnImageSize.Value
+               SELECT CASE cmbImageSize.Text
+               CASE "GB"
+                  'Image size suffix is G:
+                  sTemp = sTemp & "G"
+               CASE "MB"
+                  'Image size suffix is M:
+                  sTemp = sTemp & "M"
+               CASE "KB"
+                  'default image size suffix
+               END SELECT
+               'message.Info(sTemp, "OK")
+               SHELL "qemu-img " & sTemp AS MyProc
+               WHILE MyProc.State = MyProc.Running
+                 WAIT 0.1
+               WEND
+               IF Exist(txtDestImage.Text) THEN
+                  message.Info("Image succesfully created", "OK")
+               ELSE
+                  message.Info("Error creating image", "OK")
+               ENDIF
+            ELSE
+               message.Info("Destination file textbox is not a path", "OK")
+            ENDIF
+         ENDIF
+      ENDIF
+   ELSE
+      IF txtDestImage.Text = "" OR txtSourceImage.Text = "" THEN
+         message.Info("Source or destination file textbox is empty", "OK")
+      ELSE
+         IF Exist(txtDestImage.Text) THEN
+            message.Info("Destination file already exists", "OK")
+         ELSE
+            IF Left(txtDestImage.Text, 1) = "/" AND Left(txtSourceImage.Text, 1) = "/" THEN
+               'do it
+               sTemp = sTemp & "convert "
+               IF chkCompress.Value = TRUE THEN sTemp = sTemp & " -c "
+               'IF chkEncrypt.Value = TRUE THEN sTemp = sTemp & " -e "
+               IF cmbSourceFormat.Text = "auto" THEN
+               ELSE
+                  sTemp = sTemp & "-f " & cmbSourceFormat.Text & " "
+               ENDIF
+               sTemp = sTemp & txtSourceImage.Text & " "
+               sTemp = sTemp & "-O " & cmbDestFormat.Text & " "
+               sTemp = sTemp & txtDestImage.Text
+               'message.Info(sTemp, "OK")
+               SHELL "qemu-img " & sTemp AS MyProc
+               WHILE MyProc.State = MyProc.Running
+                 WAIT 0.1
+               WEND
+               IF Exist(txtDestImage.Text) THEN
+                  message.Info("Image succesfully converted", "OK")
+               ELSE
+                  message.Info("Error converting image", "OK")
+               ENDIF
+            ELSE
+               message.Info("Source or destination file textbox is not a path", "OK")
+            ENDIF
+         ENDIF
+      ENDIF
+   ENDIF
+END
+
+PUBLIC SUB tbtSamba_Click()
+   txtSamba.text = Global.GetDir()
+END
+
+PUBLIC SUB chkSamba_Click()
+   IF chkSamba.Value = TRUE THEN
+      txtSamba.Enabled = TRUE
+      tbtSamba.Enabled = TRUE
+   ELSE
+      txtSamba.Enabled = FALSE
+      tbtSamba.Enabled = FALSE
+   ENDIF
+END
+
+PUBLIC SUB cmbBoot_Click()
+
+
+
+END
+
+
+PUBLIC SUB chkKQEMU_Click()
+
+IF chkKQEMU.Value = TRUE THEN
+   chkKQEMUFull.Value = FALSE
+   chkKQEMUFull.Enabled = FALSE
+ELSE
+   chkKQEMUFull.Enabled = TRUE
+ENDIF
+
+END
+
+PUBLIC SUB chkKQEMUFull_Click()
+
+IF chkKQEMUFull.Value = TRUE THEN
+   chkKQEMU.Value = FALSE
+   chkKQEMU.Enabled = FALSE
+ELSE
+   chkKQEMU.Enabled = TRUE
+ENDIF
+
+END
+
+PUBLIC SUB butPortRedirect_Click()
+DIM n AS Integer
+
+IF txtHport1.Text <> "" AND txtVMport1.Text <> "" THEN
+   IF Global.arrHPort.Find(txtHport1.Text) = -1 AND Global.arrVMPort.Find(txtVMport1.Text)= -1 THEN
+      Global.arrHPort.Add(txtHPort1.Text)
+      Global.arrVMPort.Add(txtVMPort1.Text)
+      FOR n = n TO Global.arrHPort.count - 1
+'         grdPorts[n,0].Text = Global.arrHPort[n]
+'         grdPorts[n,1].Text = Global.arrVMPort[n]
+      NEXT  'n
+   ENDIF
+ENDIF
+
+
+
+
+' IF txtHport.Text <> "" AND txtVMport.Text <> "" THEN
+'    IF cmbHport.Find(txtHport.Text) = -1 AND cmbVMport.Find(txtVMport.Text)= -1 THEN
+'       cmbHport.Add(txtHport.Text)
+'       cmbVMport.Add(txtVMport.Text)
+'    ENDIF
+' ENDIF
+'
+ END
+
+PUBLIC SUB txtHport1_KeyPress()
+  ValidateNumeric(txtHport1, FALSE)
+END
+
+PUBLIC SUB txtVMport1_KeyPress()
+  ValidateNumeric(txtVMport1, FALSE)
+END
+
+PRIVATE SUB ValidateNumeric(CurrentText AS TextBox, Decimals AS Boolean)
+
+'Alow numbers:
+IF Key.Text LIKE "[0-9]" THEN
+   'Check for special 0 conditions:
+   IF Key.Text = "0" THEN
+      'Disallow leading 0 if no Decimals:
+      IF CurrentText.Text = "" AND decimals = FALSE THEN STOP EVENT
+      'Disallow second 0 if decimals:
+      IF CurrentText.Text = "0" THEN STOP EVENT
+   ENDIF
+   RETURN
+ENDIF
+
+'Alow decimal point if Decimals - but only one:
+IF decimals = TRUE THEN
+   IF Key.Text LIKE "." AND Instr(CurrentText.Text, ".") = 0 THEN
+      IF CurrentText.Text = "" THEN CurrentText.Text = "0"
+      RETURN
+   ENDIF
+ENDIF
+
+'Alow editing keys:
+IF Key.Code = Key.BackSpace OR Key.Code = Key.Delete THEN RETURN
+IF Key.Code = Key.Tab OR Key.Code = Key.Return THEN RETURN
+IF Key.Code = Key.Left OR Key.Code = Key.Right THEN RETURN
+
+'Allow nothing else:
+STOP EVENT
+
+END

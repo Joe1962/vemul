@@ -1,0 +1,830 @@
+# Gambas Form File 1.0
+
+{ frmMain Form
+  Move(236,34,412,427)
+  Text = ("VL-qemu")
+  Border = Window.Fixed
+  { TabStrip1 TabStrip
+    Move(4,52,404,336)
+    Font = Font["9"]
+    Padding = 1
+    Count = 3
+    Index = 0
+    Text = ("Emulation")
+    { Frame2 Frame
+      Move(4,4,392,164)
+      Font = Font["9"]
+      Text = ("Hardware")
+      { Label2 Label
+        Move(12,20,76,24)
+        Font = Font["9"]
+        ToolTip = ("Select boot device")
+        Text = ("Boot from:")
+        Alignment = Align.Right
+      }
+      { cmbBoot ComboBox
+        Move(92,20,100,24)
+        Font = Font["9"]
+        ToolTip = ("Select boot device")
+        Text = (" ")
+        ReadOnly = True
+        List = ("CD-ROM\nHard disk\nFloppy")
+      }
+      { Label3 Label
+        Move(204,20,76,24)
+        Font = Font["9"]
+        ToolTip = ("Select keyboard layout language")
+        Text = ("Keyboard:")
+        Alignment = Align.Right
+      }
+      { cmbKeyLang ComboBox
+        Move(284,20,100,24)
+        Font = Font["9"]
+        ToolTip = ("Select keyboard layout language")
+        Text = (" ")
+        ReadOnly = True
+        List = ("ar\nda\nde\nde-ch\nen-gb\nen-us\nes\net\nfi\nfo\nfr\nfr-be\nfr-ca\nfr-ch\nhr\nhu\nis\nit\nja\nlt\nlv\nmk\nnl\nnl-be\nno\npl\npt\npt-br\nru\nsl\nsv\nth\ntr")
+        Sorted = True
+      }
+      { Label5 Label
+        Move(204,48,76,24)
+        Font = Font["9"]
+        ToolTip = ("Select Real Time Clock mode")
+        Text = ("RTC mode:")
+        Alignment = Align.Right
+      }
+      { cmbRTCMode ComboBox
+        Move(284,48,100,24)
+        Font = Font["9"]
+        ToolTip = ("Select Real Time Clock mode")
+        Text = (" ")
+        ReadOnly = True
+        List = ("localtime\nUTC")
+      }
+      { Label14 Label
+        Move(12,48,76,24)
+        Font = Font["9"]
+        ToolTip = ("Select the amount of RAM for the VM")
+        Text = ("RAM (MB):")
+        Alignment = Align.Right
+      }
+      { cmbRAM ComboBox
+        Move(92,48,100,24)
+        Font = Font["9"]
+        ToolTip = ("Select the amount of RAM for the VM")
+        Text = ("")
+        ReadOnly = True
+        List = ("1\n2\n4\n8\n12\n16\n24\n32\n48\n64\n96\n128\n192\n256\n384\n512\n768\n1024")
+      }
+      { Label15 Label
+        Move(204,76,112,24)
+        Font = Font["9"]
+        ToolTip = ("Choose the number of SMP processors to emulate")
+        Text = ("SMP Processors:")
+        Alignment = Align.Right
+      }
+      { spnSMP SpinBox
+        Move(320,76,64,24)
+        Font = Font["9"]
+        ToolTip = ("Choose the number of SMP processors to emulate")
+        Value = 1
+        MinValue = 1
+        MaxValue = 255
+        Wrap = True
+      }
+      { Label1 Label
+        Move(12,76,80,24)
+        Font = Font["9"]
+        ToolTip = ("Select the emulated machine")
+        Text = ("Machine type:")
+        Alignment = Align.Right
+      }
+      { cmbMachine ComboBox
+        Move(92,76,100,24)
+        Font = Font["9"]
+        ToolTip = ("Select the emulated machine")
+        Text = ("")
+        ReadOnly = True
+        List = ("Standard PC\nISA-only PC")
+      }
+      { Label6 Label
+        Move(12,104,112,24)
+        Font = Font["9"]
+        ToolTip = ("Select graphics hardware to use")
+        Text = ("Graphics adapter:")
+        Alignment = Align.Right
+      }
+      { cmbGraphicsHW ComboBox
+        Move(128,104,256,24)
+        Font = Font["9"]
+        ToolTip = ("Select graphics hardware to use")
+        Text = (" ")
+        ReadOnly = True
+        List = ("Cirrus Logic GD5446 PCI\nStandard VGA")
+      }
+      { Label4 Label
+        Move(12,132,112,24)
+        Font = Font["9"]
+        ToolTip = ("Select sound hardware to enable")
+        Text = ("Sound hardware:")
+        Alignment = Align.Right
+      }
+      { cmbSoundHW ComboBox
+        Move(128,132,256,24)
+        Font = Font["9"]
+        ToolTip = ("Select sound hardware to enable")
+        Text = (" ")
+        ReadOnly = True
+        List = ("Creative Sound Blaster 16\nENSONIQ AudioPCI ES1370\nAdlib(OPL2) - Yamaha YM3812 compatible\nall\nnone")
+      }
+    }
+    { Frame4 Frame
+      Move(4,172,392,128)
+      Font = Font["9"]
+      Text = ("Options")
+      { chkSnapshot CheckBox
+        Move(24,20,156,24)
+        Font = Font["9"]
+        ToolTip = ("Do not save changes to disk image")
+        Text = ("Write to temporary file")
+      }
+      { chkScreenMode CheckBox
+        Move(24,40,156,24)
+        Font = Font["9"]
+        ToolTip = ("Full screen or windowed mode")
+        Text = ("Start in full screen")
+      }
+      { chkWin2kHack CheckBox
+        Move(24,60,156,24)
+        Font = Font["9"]
+        ToolTip = ("Avoid disk-full bug during install...")
+        Text = ("Win 2K install hack")
+      }
+      { chkLog CheckBox
+        Move(24,80,156,24)
+        Font = Font["9"]
+        ToolTip = ("Log to /tmp/qemu.log")
+        Text = ("Output log file")
+      }
+      { chkUSB CheckBox
+        Move(24,100,156,24)
+        Font = Font["9"]
+        ToolTip = ("Enable the UHCI USB controller and virtual hub")
+        Text = ("Enable USB driver")
+      }
+      { chkKQEMU CheckBox
+        Move(212,20,156,24)
+        Font = Font["9"]
+        ToolTip = ("Disable the kernel accelerator module")
+        Text = ("Disable accelerator")
+      }
+      { chkKQEMUFull CheckBox
+        Move(212,40,156,24)
+        Font = Font["9"]
+        ToolTip = ("Enable the kernel accelerator module in full virtualization mode...\nUse only with Linux 2.4 / 2.6 and Windows 2000 / XP guests")
+        Text = ("Full virtualization mode")
+      }
+      { chkACPI CheckBox
+        Move(212,60,104,24)
+        Font = Font["9"]
+        ToolTip = ("Disable ACPI (Advanced Configuration and Power Interface) support")
+        Text = ("Disable ACPI")
+      }
+      { chkNoReboot CheckBox
+        Move(212,80,156,24)
+        Font = Font["9"]
+        ToolTip = ("Exit qemu after rebooting the guest OS")
+        Text = ("Exit instead of rebooting")
+      }
+    }
+    Index = 1
+    Text = ("Drives/Images")
+    { Frame9 Frame
+      Move(4,4,392,192)
+      Text = ("Disk drives")
+      { Label7 Label
+        Move(4,16,52,24)
+        Font = Font["9"]
+        Text = ("fda:")
+        Alignment = Align.Right
+      }
+      { Label8 Label
+        Move(4,40,52,24)
+        Font = Font["9"]
+        Text = ("fdb:")
+        Alignment = Align.Right
+      }
+      { Label9 Label
+        Move(4,64,52,24)
+        Font = Font["9"]
+        Text = ("cdrom:")
+        Alignment = Align.Right
+      }
+      { Label10 Label
+        Move(4,88,52,24)
+        Font = Font["9"]
+        Text = ("hda:")
+        Alignment = Align.Right
+      }
+      { Label11 Label
+        Move(4,112,52,24)
+        Font = Font["9"]
+        Text = ("hdb:")
+        Alignment = Align.Right
+      }
+      { Label12 Label
+        Move(4,136,52,24)
+        Font = Font["9"]
+        Text = ("hdc:")
+        Alignment = Align.Right
+      }
+      { Label13 Label
+        Move(4,160,52,24)
+        Font = Font["9"]
+        Text = ("hdd:")
+        Alignment = Align.Right
+      }
+      { cmbFDA ComboBox
+        Move(60,16,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\nfile\n/dev/fd0\n/dev/fd1\n/dev/fd2\n/dev/fd3")
+      }
+      { cmbFDB ComboBox
+        Move(60,40,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\nfile\n/dev/fd0\n/dev/fd1\n/dev/fd2\n/dev/fd3")
+      }
+      { cmbCDROM ComboBox
+        Move(60,64,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\n/dev/cdrom\n/dev/dvd\n/dev/cdwriter\nfile")
+      }
+      { cmbHDA ComboBox
+        Move(60,88,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\nfile")
+      }
+      { cmbHDB ComboBox
+        Move(60,112,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\nfile")
+      }
+      { cmbHDC ComboBox
+        Move(60,136,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\nfile")
+      }
+      { cmbHDD ComboBox
+        Move(60,160,108,24)
+        Font = Font["9"]
+        Text = ("")
+        ReadOnly = True
+        List = ("none\nfile")
+      }
+      { txtFDA TextBox
+        Move(172,16,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { txtFDB TextBox
+        Move(172,40,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { txtCDROM TextBox
+        Move(172,64,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { txtHDA TextBox
+        Move(172,88,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { txtHDB TextBox
+        Move(172,112,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { txtHDC TextBox
+        Move(172,136,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { txtHDD TextBox
+        Move(172,160,192,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { tbtFDA ToolButton
+        Move(364,16,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { tbtFDB ToolButton
+        Move(364,40,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { tbtCDROM ToolButton
+        Move(364,64,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { tbtHDA ToolButton
+        Move(364,88,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { tbtHDB ToolButton
+        Move(364,112,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { tbtHDC ToolButton
+        Move(364,136,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { tbtHDD ToolButton
+        Move(364,160,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+    }
+    { Frame1 Frame
+      Move(4,200,392,100)
+      Font = Font["9"]
+      Text = ("Create/convert images")
+      { lblDestFormat Label
+        Move(280,44,44,24)
+        Font = Font["9"]
+        Text = ("format:")
+        Alignment = Align.Right
+      }
+      { lblSourceFormat Label
+        Move(280,20,44,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("format:")
+        Alignment = Align.Right
+      }
+      { lblSourceImage Label
+        Move(80,20,44,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("source:")
+        Alignment = Align.Right
+      }
+      { txtSourceImage TextBox
+        Move(124,20,132,24)
+        Enabled = False
+        Text = ("")
+      }
+      { cmbDestFormat ComboBox
+        Move(324,44,64,24)
+        Text = ("")
+        ReadOnly = True
+        List = ("raw\nqcow2\nqcow\ncow\nvmdk\ncloop")
+      }
+      { tbtSourceImage ToolButton
+        Move(256,20,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { txtDestImage TextBox
+        Move(124,44,132,24)
+        Text = ("")
+      }
+      { tbtDestImage ToolButton
+        Move(256,44,24,24)
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { lblDestImage Label
+        Move(80,44,44,24)
+        Font = Font["9"]
+        Text = ("dest:")
+        Alignment = Align.Right
+      }
+      { cmbSourceFormat ComboBox
+        Move(324,20,64,24)
+        Enabled = False
+        Text = ("")
+        ReadOnly = True
+        List = ("auto\nraw\nqcow2\nqcow\ncow\nvmdk\ncloop")
+      }
+      { lblImageSize Label
+        Move(188,72,36,24)
+        Font = Font["9"]
+        Text = ("size:")
+        Alignment = Align.Right
+      }
+      { cmbImageSize ComboBox
+        Move(272,72,48,24)
+        Text = ("")
+        ReadOnly = True
+        List = ("GB\nMB\nKB")
+      }
+      { spnImageSize SpinBox
+        Move(224,72,48,24)
+        Value = 1
+        MinValue = 1
+        MaxValue = 1023
+        Wrap = True
+      }
+      { butImageManager Button
+        Move(324,72,64,24)
+        Font = Font["9"]
+        ToolTip = ("Create/convert disk image")
+        Text = ("Go!")
+      }
+      { rbtImageManager1 RadioButton rbtImageProc
+        Move(4,24,64,16)
+        Font = Font["9"]
+        Text = ("create")
+        Value = True
+      }
+      { rbtImageManager2 RadioButton rbtImageProc
+        Move(4,48,64,16)
+        Font = Font["9"]
+        Text = ("convert")
+      }
+      { chkCompress CheckBox
+        Move(4,72,100,24)
+        Enabled = False
+        Font = Font["9"]
+        ToolTip = ("Compress the resulting image")
+        Text = ("Compressed")
+      }
+      { chkEncrypt CheckBox
+        Move(100,72,84,24)
+        Font = Font["9"]
+        ToolTip = ("Encrypt the resulting image")
+        Text = ("Encrypted")
+      }
+    }
+    Index = 2
+    Text = ("Network")
+    { Frame8 Frame
+      Move(4,4,392,124)
+      Font = Font["9"]
+      Text = ("Hardware")
+      { cmbNIC1 ComboBox
+        Move(68,20,108,24)
+        Font = Font["9"]
+        Text = (" ")
+        ReadOnly = True
+        List = ("none\nNE2000 PCI\nNE2000 ISA\nRealtek 8139\nSMC 91c111\nlance")
+      }
+      { Label22 Label
+        Move(184,20,72,24)
+        Font = Font["9"]
+        Text = ("MAC addr:")
+        Alignment = Align.Right
+      }
+      { txtMAC1 TextBox
+        Move(260,20,124,24)
+        Text = ("")
+      }
+      { cmbNIC2 ComboBox
+        Move(68,44,108,24)
+        Font = Font["9"]
+        Text = (" ")
+        ReadOnly = True
+        List = ("none\nNE2000 PCI\nNE2000 ISA\nRealtek 8139\nSMC 91c111\nlance")
+      }
+      { Label21 Label
+        Move(184,44,72,24)
+        Font = Font["9"]
+        Text = ("MAC addr:")
+        Alignment = Align.Right
+      }
+      { txtMAC2 TextBox
+        Move(260,44,124,24)
+        Text = ("")
+      }
+      { cmbNIC3 ComboBox
+        Move(68,68,108,24)
+        Font = Font["9"]
+        Text = (" ")
+        ReadOnly = True
+        List = ("none\nNE2000 PCI\nNE2000 ISA\nRealtek 8139\nSMC 91c111\nlance")
+      }
+      { Label23 Label
+        Move(184,68,72,24)
+        Font = Font["9"]
+        Text = ("MAC addr:")
+        Alignment = Align.Right
+      }
+      { txtMAC3 TextBox
+        Move(260,68,124,24)
+        Text = ("")
+      }
+      { cmbNIC4 ComboBox
+        Move(68,92,108,24)
+        Font = Font["9"]
+        Text = (" ")
+        ReadOnly = True
+        List = ("none\nNE2000 PCI\nNE2000 ISA\nRealtek 8139\nSMC 91c111\nlance")
+      }
+      { Label24 Label
+        Move(184,92,72,24)
+        Font = Font["9"]
+        Text = ("MAC addr:")
+        Alignment = Align.Right
+      }
+      { txtMAC4 TextBox
+        Move(260,92,124,24)
+        Text = ("")
+      }
+      { Label38 Label
+        Move(8,20,56,24)
+        Font = Font["9"]
+        Text = ("NIC #1:")
+        Alignment = Align.Right
+      }
+      { Label39 Label
+        Move(8,44,56,24)
+        Font = Font["9"]
+        Text = ("NIC #2:")
+        Alignment = Align.Right
+      }
+      { Label40 Label
+        Move(8,68,56,24)
+        Font = Font["9"]
+        Text = ("NIC #3:")
+        Alignment = Align.Right
+      }
+      { Label41 Label
+        Move(8,92,56,24)
+        Font = Font["9"]
+        Text = ("NIC #4:")
+        Alignment = Align.Right
+      }
+    }
+    { Frame3 Frame
+      Move(4,132,392,168)
+      Text = ("Options")
+      { chkSamba CheckBox
+        Move(8,140,104,24)
+        Font = Font["9"]
+        ToolTip = ("Enable a Samba network share")
+        Text = ("Samba share:")
+      }
+      { txtSamba TextBox
+        Move(112,140,248,24)
+        Enabled = False
+        Font = Font["9"]
+        Text = ("")
+      }
+      { tbtSamba ToolButton
+        Move(360,140,24,24)
+        Enabled = False
+        Text = ("")
+        Picture = Picture["folder.png"]
+        Border = True
+      }
+      { Frame5 Frame
+        Move(8,16,376,120)
+        Text = ("Server ports redirection")
+        { Label18 Label
+          Move(8,16,48,20)
+          Font = Font["9"]
+          ToolTip = ("Select boot device")
+          Text = ("Host:")
+          Alignment = Align.Center
+        }
+        { Label19 Label
+          Move(60,16,48,20)
+          Font = Font["9"]
+          ToolTip = ("Select boot device")
+          Text = ("VM:")
+          Alignment = Align.Center
+        }
+        { txtHport1 TextBox
+          Move(8,36,48,24)
+          ToolTip = ("Host port to redirect to guest (has to be a high port unles you are root)")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtVMport1 TextBox
+          Move(60,36,48,24)
+          ToolTip = ("Guest port redirected from host")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtHport2 TextBox
+          Move(8,64,48,24)
+          ToolTip = ("Host port to redirect to guest (has to be a high port unles you are root)")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtVMport2 TextBox
+          Move(60,64,48,24)
+          ToolTip = ("Guest port redirected from host")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtHport3 TextBox
+          Move(8,92,48,24)
+          ToolTip = ("Host port to redirect to guest (has to be a high port unles you are root)")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtVMport3 TextBox
+          Move(60,92,48,24)
+          ToolTip = ("Guest port redirected from host")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtHport4 TextBox
+          Move(196,36,48,24)
+          ToolTip = ("Host port to redirect to guest (has to be a high port unles you are root)")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtVMport4 TextBox
+          Move(248,36,48,24)
+          ToolTip = ("Guest port redirected from host")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtHport5 TextBox
+          Move(196,64,48,24)
+          ToolTip = ("Host port to redirect to guest (has to be a high port unles you are root)")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtVMport5 TextBox
+          Move(248,64,48,24)
+          ToolTip = ("Guest port redirected from host")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtHport6 TextBox
+          Move(196,92,48,24)
+          ToolTip = ("Host port to redirect to guest (has to be a high port unles you are root)")
+          Text = ("")
+          MaxLength = 5
+        }
+        { txtVMport6 TextBox
+          Move(248,92,48,24)
+          ToolTip = ("Guest port redirected from host")
+          Text = ("")
+          MaxLength = 5
+        }
+        { Panel1 Panel
+          Move(188,16,4,100)
+          Border = Border.Etched
+        }
+        { cmbPortType1 ComboBox
+          Move(112,36,68,24)
+          Font = Font["9"]
+          Text = (" ")
+          ReadOnly = True
+          List = ("tcp\nudp")
+        }
+        { Label20 Label
+          Move(112,16,68,20)
+          Font = Font["9"]
+          ToolTip = ("Select boot device")
+          Text = ("Type:")
+          Alignment = Align.Center
+        }
+        { cmbPortType2 ComboBox
+          Move(112,64,68,24)
+          Font = Font["9"]
+          Text = (" ")
+          ReadOnly = True
+          List = ("tcp\nudp")
+        }
+        { cmbPortType3 ComboBox
+          Move(112,92,68,24)
+          Font = Font["9"]
+          Text = (" ")
+          ReadOnly = True
+          List = ("tcp\nudp")
+        }
+        { cmbPortType4 ComboBox
+          Move(300,36,68,24)
+          Font = Font["9"]
+          Text = (" ")
+          ReadOnly = True
+          List = ("tcp\nudp")
+        }
+        { cmbPortType5 ComboBox
+          Move(300,64,68,24)
+          Font = Font["9"]
+          Text = (" ")
+          ReadOnly = True
+          List = ("tcp\nudp")
+        }
+        { cmbPortType6 ComboBox
+          Move(300,92,68,24)
+          Font = Font["9"]
+          Text = (" ")
+          ReadOnly = True
+          List = ("tcp\nudp")
+        }
+        { Label25 Label
+          Move(196,16,48,20)
+          Font = Font["9"]
+          ToolTip = ("Select boot device")
+          Text = ("Host:")
+          Alignment = Align.Center
+        }
+        { Label26 Label
+          Move(248,16,48,20)
+          Font = Font["9"]
+          ToolTip = ("Select boot device")
+          Text = ("VM:")
+          Alignment = Align.Center
+        }
+        { Label27 Label
+          Move(300,16,68,20)
+          Font = Font["9"]
+          ToolTip = ("Select boot device")
+          Text = ("Type:")
+          Alignment = Align.Center
+        }
+      }
+    }
+    Index = 0
+  }
+  { Frame7 Frame
+    Move(4,4,404,44)
+    Text = ("")
+    { Label17 Label
+      Move(4,28,396,12)
+      Text = ("The Vector Linux front-end for QEMU 0.9.0")
+      Alignment = Align.Center
+    }
+    { Label16 Label
+      Move(4,4,392,20)
+      Font = Font["16"]
+      Text = ("VL-QEMU")
+      Alignment = Align.Center
+    }
+    { PictureBox1 PictureBox
+      Move(8,4,28,36)
+      Picture = Picture["VL-logo-shine-32x38.png"]
+    }
+    { PictureBox2 PictureBox
+      Move(364,12,32,20)
+      Picture = Picture["gambas.png"]
+    }
+  }
+  { Frame6 Frame
+    Move(4,388,405,36)
+    Text = ("")
+    { Button1 Button
+      Move(116,4,80,28)
+      Font = Font["9"]
+      ToolTip = ("Run QEMU with the current configuration")
+      Text = ("QEMU")
+    }
+    { Button2 Button
+      Move(200,4,80,28)
+      Font = Font["9"]
+      ToolTip = ("Exit VL-QEMU")
+      Text = ("Exit")
+    }
+  }
+}
