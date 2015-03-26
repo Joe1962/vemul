@@ -1,0 +1,6 @@
+A Qemu launcher and control utility developed in Gambas by Joe1962 for VectorLinux. It makes it easy to graphically set up the necessary command line switches to launch a Qemu virtual machine and then control it. Also allows easy creation and conversion of disk images. This project was previously know as vl-qemu.
+
+| ![http://www.image-upload.net/files/5316/websitepics/vemul/tab01w.png](http://www.image-upload.net/files/5316/websitepics/vemul/tab01w.png) | ![http://www.image-upload.net/files/5316/websitepics/vemul/tab02w.png](http://www.image-upload.net/files/5316/websitepics/vemul/tab02w.png) |
+|:--------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------|
+
+![http://www.image-upload.net/files/5316/websitepics/vemul/tab03w.png](http://www.image-upload.net/files/5316/websitepics/vemul/tab03w.png)
